@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}My profile · SecondClass{% endblock %}
+{% block content %}
+<section class="profile-card">
+  <p class="eyebrow">Account settings</p>
+  <h1>My profile</h1>
+  <p class="muted">Update the contact details associated with your account.</p>
+  <div class="account-meta">
+    <span>Role</span><strong>{{ user.get_role_display }}</strong>
+    <span>Member since</span><strong>{{ user.created_at|date:"F j, Y" }}</strong>
+  </div>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}
+      <div class="field">
+        {{ field.label_tag }}
+        {{ field }}
+        {% for error in field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+      </div>
+    {% endfor %}
+    <button class="button button-primary" type="submit">Save changes</button>
+  </form>
+</section>
+{% endblock %}

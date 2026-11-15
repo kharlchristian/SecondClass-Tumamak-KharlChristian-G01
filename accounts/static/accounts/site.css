@@ -1,0 +1,93 @@
+:root {
+  color-scheme: light;
+  --ink: #20312d;
+  --muted: #62726c;
+  --paper: #f5f7f2;
+  --surface: #fff;
+  --green: #245c49;
+  --green-dark: #194533;
+  --line: #e0e8e1;
+  --error: #a23838;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+a { color: var(--green); }
+a:hover { color: var(--green-dark); }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem max(5vw, calc((100vw - 1100px) / 2));
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--green-dark);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+
+nav { display: flex; align-items: center; gap: 1.25rem; }
+nav a, .nav-button { color: var(--ink); font-size: .94rem; text-decoration: none; }
+.inline-form { display: inline; }
+.nav-button { padding: 0; border: 0; background: none; cursor: pointer; font: inherit; }
+
+.page { width: min(100% - 2rem, 1020px); min-height: calc(100vh - 150px); margin: 3rem auto; }
+.auth-card, .profile-card { width: min(100%, 510px); margin: 2rem auto; padding: 2.25rem; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 12px 35px #20312d0c; }
+.profile-card { width: min(100%, 650px); }
+h1 { margin: .2rem 0 .45rem; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.15; letter-spacing: -.045em; }
+h2 { margin: .8rem 0 .35rem; font-size: 1.2rem; }
+p { margin: .5rem 0 1rem; }
+.eyebrow { margin: 0 0 .5rem; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.muted, .panel p { color: var(--muted); }
+
+.field { margin: 1.15rem 0; }
+.field label { display: block; margin-bottom: .35rem; font-size: .91rem; font-weight: 650; }
+.field input { width: 100%; padding: .8rem .9rem; border: 1px solid #cbd7ce; border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
+.field input:focus { outline: 3px solid #245c4930; border-color: var(--green); }
+.field-error, .form-errors { margin-top: .35rem; color: var(--error); font-size: .87rem; }
+.help-text { margin-top: .35rem; color: var(--muted); font-size: .82rem; }
+.help-text ul { margin: .35rem 0; padding-left: 1.2rem; }
+.button { display: inline-block; padding: .78rem 1.1rem; border: 0; border-radius: 9px; font: inherit; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; }
+.button-primary { background: var(--green); color: #fff; }
+.button-primary:hover { background: var(--green-dark); color: #fff; }
+.full-width { width: 100%; margin-top: .5rem; }
+.form-note { margin: 1.4rem 0 0; color: var(--muted); text-align: center; }
+
+.messages { margin-bottom: 1.2rem; }
+.message { padding: .8rem 1rem; border-radius: 8px; background: #e9f4ed; color: #245c49; }
+.message + .message { margin-top: .5rem; }
+.message.error { background: #fbeaea; color: var(--error); }
+
+.welcome { padding: 1.5rem 0 1rem; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.panel { min-height: 205px; padding: 1.4rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.panel-icon { color: var(--green); font-size: .82rem; font-weight: 800; }
+.text-link { display: inline-block; margin-top: .25rem; font-weight: 700; text-decoration: none; }
+.role-badge { display: inline-block; padding: .25rem .65rem; border-radius: 20px; background: #e9f4ed; color: var(--green); font-size: .84rem; font-weight: 700; }
+.metric-panel { min-height: 170px; }
+.metric { color: var(--green); font-size: 2rem; font-weight: 800; }
+
+.account-meta { display: grid; grid-template-columns: 1fr 2fr; gap: .45rem 1rem; margin: 1.5rem 0; padding: 1rem; border-radius: 10px; background: var(--paper); }
+.account-meta span { color: var(--muted); }
+.site-footer { padding: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
+
+@media (max-width: 600px) {
+  .site-header { align-items: flex-start; flex-direction: column; gap: .75rem; }
+  nav { flex-wrap: wrap; gap: .7rem 1rem; }
+  .page { margin: 1.5rem auto; }
+  .auth-card, .profile-card { padding: 1.4rem; }
+}

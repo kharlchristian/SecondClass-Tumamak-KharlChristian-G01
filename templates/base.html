@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SecondClass{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'accounts/site.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}">SecondClass</a>
+    {% if user.is_authenticated %}
+      <nav aria-label="Main navigation">
+        <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+        <a href="{% url 'accounts:profile' %}">My profile</a>
+        {% if user.role == "ADMIN" %}<a href="{% url 'admin:index' %}">Admin site</a>{% endif %}
+        <form class="inline-form" action="{% url 'accounts:logout' %}" method="post">
+          {% csrf_token %}
+          <button class="nav-button" type="submit">Log out</button>
+        </form>
+      </nav>
+    {% else %}
+      <nav aria-label="Main navigation">
+        <a href="{% url 'accounts:login' %}">Log in</a>
+        <a href="{% url 'accounts:register' %}">Create account</a>
+      </nav>
+    {% endif %}
+  </header>
+  <main class="page">
+    {% if messages %}
+      <div class="messages" aria-live="polite">
+        {% for message in messages %}
+          <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">SecondClass · Your campus textbook marketplace</footer>
+</body>
+</html>
