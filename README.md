@@ -66,3 +66,17 @@ python manage.py test accounts --settings=config.test_settings
 ```
 
 The test settings use an in-memory SQLite database only for automated tests; normal application settings always use PostgreSQL.
+
+If PostgreSQL is not available for a local preview, you can use a temporary SQLite database with the test-only settings. This is only for previewing and is not the application's PostgreSQL setup:
+
+```powershell
+$env:DJANGO_TEST_DATABASE = (Join-Path (Get-Location) "db.sqlite3")
+python manage.py migrate --settings=config.test_settings
+python manage.py runserver --settings=config.test_settings
+```
+
+In another PowerShell window using the same `.venv`, run account tests without setting `DJANGO_TEST_DATABASE` to keep their database in memory:
+
+```powershell
+python manage.py test accounts --settings=config.test_settings
+```
