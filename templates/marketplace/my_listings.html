@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}My listings · SecondClass{% endblock %}
+{% block content %}
+<section class="welcome">
+  <p class="eyebrow">Seller workspace</p>
+  <div class="section-heading">
+    <div>
+      <h1>My textbook listings</h1>
+      <p class="muted">Manage the books you have posted for sale.</p>
+    </div>
+    <a class="button button-primary" href="{% url 'marketplace:listing_create' %}">Create listing</a>
+  </div>
+</section>
+{% if listings %}
+  <section class="listing-grid" aria-label="Your textbook listings">
+    {% for listing in listings %}
+      <article class="listing-card">
+        <span class="status-badge status-{{ listing.status|lower }}">{{ listing.get_status_display }}</span>
+        <h2><a href="{% url 'marketplace:listing_detail' listing.pk %}">{{ listing.title }}</a></h2>
+        <div class="listing-meta">
+          <span>{{ listing.course.course_code }}</span>
+          <span>{{ listing.get_condition_display }}</span>
+          <span>Edition {{ listing.edition }}</span>
+        </div>
+        <p><strong>PHP {{ listing.price }}</strong></p>
+        <a class="text-link" href="{% url 'marketplace:listing_update' listing.pk %}">Edit listing →</a>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <section class="panel"><h2>No listings yet</h2><p class="muted">Create a listing to offer a textbook to other students.</p></section>
+{% endif %}
+{% endblock %}

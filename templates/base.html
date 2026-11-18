@@ -13,8 +13,15 @@
     {% if user.is_authenticated %}
       <nav aria-label="Main navigation">
         <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+        {% if user.role == "STUDENT" %}
+          <a href="{% url 'marketplace:listing_catalog' %}">Marketplace</a>
+          <a href="{% url 'marketplace:my_listings' %}">My listings</a>
+        {% else %}
+          <a href="{% url 'marketplace:admin_panel' %}">Admin panel</a>
+          <a href="{% url 'marketplace:listing_moderation' %}">Listing moderation</a>
+          <a href="{% url 'marketplace:course_list' %}">Course options</a>
+        {% endif %}
         <a href="{% url 'accounts:profile' %}">My profile</a>
-        {% if user.role == "ADMIN" %}<a href="{% url 'admin:index' %}">Admin site</a>{% endif %}
         <form class="inline-form" action="{% url 'accounts:logout' %}" method="post">
           {% csrf_token %}
           <button class="nav-button" type="submit">Log out</button>
