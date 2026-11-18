@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Admin panel · SecondClass{% endblock %}
+{% block content %}
+<section class="welcome">
+  <p class="eyebrow">SecondClass administration</p>
+  <h1>Admin panel</h1>
+  <p class="muted">Manage marketplace listings and the course options students use when posting textbooks.</p>
+</section>
+<section class="dashboard-grid" aria-label="Marketplace overview">
+  <article class="panel metric-panel">
+    <span class="metric">{{ total_users }}</span>
+    <h2>Registered accounts</h2>
+    <p>{{ student_count }} student accounts</p>
+  </article>
+  <article class="panel metric-panel">
+    <span class="metric">{{ listing_count }}</span>
+    <h2>Textbook listings</h2>
+    <p>{{ active_listing_count }} currently available or reserved</p>
+  </article>
+  <article class="panel metric-panel">
+    <span class="metric">{{ course_count }}</span>
+    <h2>Course options</h2>
+    <p>Reference courses available to sellers.</p>
+  </article>
+  <article class="panel">
+    <span class="panel-icon">01</span>
+    <h2>Course options</h2>
+    <p>Add, edit, or remove course references used by textbook listings.</p>
+    <a class="text-link" href="{% url 'marketplace:course_list' %}">Manage courses →</a>
+  </article>
+  <article class="panel">
+    <span class="panel-icon">02</span>
+    <h2>Listing moderation</h2>
+    <p>Review listings and remove posts that violate marketplace rules.</p>
+    <a class="text-link" href="{% url 'marketplace:listing_moderation' %}">Review listings →</a>
+  </article>
+</section>
+{% endblock %}

@@ -1,6 +1,6 @@
 # SecondClass
 
-SecondClass is a Django-rendered campus marketplace for students buying and selling used textbooks organized by course. The initial milestone implements account registration, authentication, role-specific dashboards, and profile editing for the SDD's `STUDENT` and `ADMIN` roles.
+SecondClass is a Django-rendered campus marketplace for students buying and selling used textbooks organized by course. It includes account registration, authentication, role-specific dashboards, profile editing, and a textbook listing vertical slice for creating, browsing, updating, deleting, and moderating listings.
 
 ## Requirements
 
@@ -48,7 +48,7 @@ SQLite is not used by the application. Django's default database is PostgreSQL; 
    python manage.py runserver
    ```
 
-   Visit `http://127.0.0.1:8000/`. Admin users can also access `/admin/`.
+   Visit `http://127.0.0.1:8000/`. Administrators can use the custom panel at `/admin/`.
 
 ## Account feature
 
@@ -57,12 +57,31 @@ SQLite is not used by the application. Django's default database is PostgreSQL; 
 - Students and administrators are redirected to separate dashboards. Direct access to the other role's dashboard is denied.
 - Signed-in users can view and update only their own name, email, and contact number at `/profile/`.
 
+## Textbook listings
+
+- Students can create, browse, filter by course/subject/edition/condition/price, update, and delete textbook listings.
+- Each listing is linked to its student seller and a course. Prices must be positive; title, edition, and condition are required.
+- Listing prices are entered and displayed in Philippine pesos (PHP).
+- Sellers can change status between available, reserved, and sold. Sold or removed listings cannot be returned to an active status, and each seller may have at most 20 active listings.
+- Administrators can remove listings and maintain course references in the custom admin panel.
+- The initial migration seeds these placeholder course options, which administrators can update in the custom admin panel:
+  - `CSIT321` — Applications Development and Emerging Technologies
+  - `CSIT340` — Industry Elective 1
+  - `IT365` — Data Analytics 1
+  - `CSIT212` — Quantitative Methods
+  - `CSIT284` — Platform-based Development 3 (Mobile)
+  - `CSIT227` — Object-oriented Programming1
+  - `CSIT228` — Object-oriented Programming 2
+  - `CSIT111` — Introduction to Computing
+
+Apply the new marketplace migrations with `python manage.py migrate` as part of the local setup.
+
 ## Tests
 
-Run the account tests using the test-only settings module:
+Run the account and marketplace tests using the test-only settings module:
 
 ```powershell
-python manage.py test accounts --settings=config.test_settings
+python manage.py test accounts marketplace --settings=config.test_settings
 ```
 
 The test settings use an in-memory SQLite database only for automated tests; normal application settings always use PostgreSQL.
