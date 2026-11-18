@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Textbook marketplace · SecondClass{% endblock %}
+{% block content %}
+<section class="welcome">
+  <p class="eyebrow">Campus marketplace</p>
+  <div class="section-heading">
+    <div>
+      <h1>Find a textbook</h1>
+      <p class="muted">Browse available books organized by course.</p>
+    </div>
+    <a class="button button-primary" href="{% url 'marketplace:listing_create' %}">Sell a textbook</a>
+  </div>
+</section>
+<form class="filter-card" method="get">
+  {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+  {% for field in form %}
+    <div class="field">
+      {{ field.label_tag }}
+      {{ field }}
+      {% for error in field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+    </div>
+  {% endfor %}
+  <button class="button button-primary" type="submit">Apply filters</button>
+</form>
+{% if listings %}
+  <section class="listing-grid" aria-label="Available textbook listings">
+    {% for listing in listings %}
+      <article class="listing-card">
+        <span class="status-badge">Available</span>
+        <h2><a href="{% url 'marketplace:listing_detail' listing.pk %}">{{ listing.title }}</a></h2>
+        <div class="listing-meta">
+          <span>{{ listing.course.course_code }}</span>
+          <span>{{ listing.get_condition_display }}</span>
+          <span>Edition {{ listing.edition }}</span>
+        </div>
+        <p><strong>PHP {{ listing.price }}</strong></p>
+        <p class="muted">Seller: {{ listing.seller.full_name|default:listing.seller.username }}</p>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <section class="panel"><h2>No matching textbooks</h2><p class="muted">Try changing your filters or check back later.</p></section>
+{% endif %}
+{% endblock %}

@@ -20,8 +20,10 @@
   <article class="panel">
     <span class="panel-icon">↗</span>
     <h2>Admin tools</h2>
-    <p>Open Django administration to manage users and platform settings.</p>
-    <a class="text-link" href="{% url 'admin:index' %}">Open admin site →</a>
+    <p>Use the custom panel to manage course options and review marketplace listings.</p>
+    <a class="text-link" href="{% url 'marketplace:admin_panel' %}">Open admin panel →</a>
+    <a class="text-link" href="{% url 'marketplace:listing_moderation' %}">Review listings →</a>
+    <a class="text-link" href="{% url 'marketplace:course_list' %}">Manage course options →</a>
   </article>
 </section>
 {% endblock %}
